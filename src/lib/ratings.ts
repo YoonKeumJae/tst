@@ -30,3 +30,14 @@ export function formatStarRating(rating: number | null): string {
 
     return '★'.repeat(fullStars) + (halfStar ? '½' : '') + '☆'.repeat(emptyStars);
 }
+
+/**
+ * Builds the short rating summary shown on game listing cards: the star
+ * glyphs plus a numeric "X.X / 5" value, or `'No rating yet'` when the
+ * game has not been rated. Consumed by `GameCard.astro`.
+ */
+export function formatCardRatingSummary(rating: number | null): string {
+    if (rating === null) return 'No rating yet';
+
+    return `${formatStarRating(rating)} ${clampRating(rating).toFixed(1)} / 5`;
+}
